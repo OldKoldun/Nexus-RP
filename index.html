@@ -392,7 +392,7 @@
             border-top: 1px solid rgba(70,130,200,0.2);
         }
 
-        /* Стили для правил */
+        /* ===== СТИЛИ ДЛЯ АККОРДЕОНА ПРАВИЛ ===== */
         .search-container {
             margin-bottom: 30px;
             display: flex;
@@ -449,21 +449,40 @@
             border-radius: 10px;
         }
         .rules-section {
-            margin-bottom: 35px;
-            border-bottom: 1px solid rgba(70,130,200,0.3);
-            padding-bottom: 20px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(70,130,200,0.2);
         }
         .rules-section h3 {
             font-family: 'Russo One', monospace;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: #8bcbff;
-            margin-bottom: 15px;
-            border-left: 3px solid #6ab0e6;
-            padding-left: 15px;
+            margin: 0;
+            padding: 12px 15px;
+            background: rgba(0,30,45,0.5);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 12px;
+            transition: 0.2s;
         }
-        .rules-section p {
-            margin-bottom: 10px;
+        .rules-section h3:hover {
+            background: rgba(58,134,200,0.3);
+        }
+        .rules-section h3 i {
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+        .rules-section .accordion-content {
+            padding: 15px 20px;
+            display: none;
             line-height: 1.5;
+        }
+        .rules-section.open .accordion-content {
+            display: block;
+        }
+        .rules-section.open h3 i {
+            transform: rotate(180deg);
         }
         .highlight {
             background-color: #f0b27a;
@@ -473,7 +492,7 @@
             font-weight: bold;
         }
 
-        /* Модальные окна */
+        /* ===== МОДАЛЬНЫЕ ОКНА ===== */
         .modal {
             display: none;
             position: fixed;
@@ -576,86 +595,100 @@
             display: block;
         }
 
-        /* Радио-плеер */
+        /* ===== РАДИО-ПЛЕЕР (без кнопки загрузки) ===== */
         .radio-player {
             position: fixed;
             bottom: 20px;
             right: 20px;
             z-index: 1050;
-            background: rgba(0,15,25,0.85);
+            background: rgba(0,15,25,0.9);
             backdrop-filter: blur(12px);
-            border-radius: 50px;
-            padding: 8px 15px;
+            border-radius: 24px;
+            padding: 12px 18px;
             border: 1px solid #3a86c8;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 260px;
+        }
+        .radio-player .row {
             display: flex;
             align-items: center;
             gap: 12px;
+            flex-wrap: wrap;
+            justify-content: space-between;
         }
         .radio-icon {
             color: #7ab3c8;
             font-size: 1.3rem;
         }
         .radio-title {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: bold;
             color: #9ac8f0;
         }
         .radio-controls {
             display: flex;
-            gap: 8px;
+            gap: 12px;
+            align-items: center;
         }
         .radio-btn {
             background: none;
             border: none;
             color: #bbd9ff;
-            font-size: 1rem;
+            font-size: 1.2rem;
             cursor: pointer;
+            transition: 0.2s;
         }
         .radio-btn:hover {
             color: #6ab0e6;
+            transform: scale(1.05);
         }
         .volume-slider {
-            width: 60px;
+            width: 80px;
             cursor: pointer;
             background: #2c7da0;
-            height: 3px;
-            border-radius: 3px;
+            height: 4px;
+            border-radius: 4px;
             -webkit-appearance: none;
         }
         .volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background: #8bcbff;
             cursor: pointer;
         }
-        .track-name {
+        .track-select {
+            background: rgba(10,30,48,0.8);
+            border: 1px solid #3a86c8;
+            border-radius: 20px;
+            padding: 6px 10px;
+            color: #e2e8f0;
+            font-family: 'Source Code Pro', monospace;
             font-size: 0.7rem;
-            max-width: 120px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: #cbe4fe;
+            cursor: pointer;
+            max-width: 160px;
         }
         .toast-msg {
             position: fixed;
-            bottom: 30px;
+            bottom: 80px;
             right: 30px;
             background: #0a1a28;
             color: #9ac8f0;
-            padding: 12px 24px;
+            padding: 10px 18px;
             border-radius: 40px;
             z-index: 1100;
             backdrop-filter: blur(12px);
             border-left: 4px solid #4682b4;
+            font-size: 0.8rem;
             animation: fadeInUp 0.3s ease;
         }
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         @media (max-width: 850px) {
             .nav-links {
                 display: none;
@@ -684,6 +717,17 @@
             }
             .rules-content {
                 max-height: 450px;
+            }
+            .radio-player {
+                min-width: 220px;
+                padding: 8px 12px;
+            }
+            .track-select {
+                max-width: 120px;
+                font-size: 0.65rem;
+            }
+            .volume-slider {
+                width: 60px;
             }
         }
     </style>
@@ -750,7 +794,7 @@
                 </div>
             </div>
 
-            <!-- Вкладка ПРАВИЛА с полным текстом -->
+            <!-- Вкладка ПРАВИЛА (аккордеон + поиск) -->
             <div id="rules" class="tab-content">
                 <h2 class="section-title"><span>📜 УСТАВ ЗОНЫ (ПОЛНАЯ ВЕРСИЯ)</span></h2>
                 <div class="search-container">
@@ -759,26 +803,27 @@
                     <button id="clearSearchBtn" class="clear-btn"><i class="fas fa-times"></i> Сброс</button>
                 </div>
                 <div class="rules-content" id="rulesContent">
-                    <div class="rules-section"><h3>1. Введение</h3><p><strong>1.1 Юрисдикция:</strong> Подключаясь к серверу, игрок соглашается с правилами. Незнание не освобождает от ответственности. Администрация вправе изменять правила с уведомлением в Discord.</p><p><strong>1.2 Политика проекта:</strong> Тематика – S.T.A.L.K.E.R. (постапокалиптика). Возраст игрока от 14 лет, персонажа от 18 лет.</p></div>
-                    <div class="rules-section"><h3>2. Термины и определения</h3><p><strong>RP</strong> – ролевая игра. <strong>IC/OOC</strong> – игровая/реальная информация. <strong>RDM</strong> – убийство без RP-причины. <strong>PG</strong> – отсутствие страха за жизнь. <strong>NLR</strong> – после тяжёлого ранения забыть события 15 минут. <strong>Ruleplay</strong> – использование буквы правил в ущерб духу RP.</p><p><strong>Зелёные зоны (ЗЗ):</strong> Деревня новичков, Бар, Янов – запрещено насилие. <strong>Красные зоны (КЗ):</strong> зоны активных перестрелок.</p></div>
-                    <div class="rules-section"><h3>3. Система наказаний</h3><p>Предупреждение, мут, ограничение роли, временный бан, перманентный бан. 3 предупреждения за месяц = мут 3 дня. Обход бана = пермач. Апелляции через тикет Discord.</p></div>
-                    <div class="rules-section"><h3>4. Этика и коммуникация</h3><p>ООС-чат (Enter) – только технические вопросы. Запрещены оскорбления, дискриминация, политика, NSFW-контент, реклама.</p></div>
-                    <div class="rules-section"><h3>5. Технические требования</h3><p>Один игрок – один аккаунт. Никнейм транслитом. Запрещены читы, баги (дропшот, мунволк, матрешка).</p></div>
-                    <div class="rules-section"><h3>6. Отыгрыш персонажа</h3><p>FearRP – персонаж ценит жизнь. Идентификация только по удостоверению.</p></div>
-                    <div class="rules-section"><h3>7. Боевые механики</h3><p>Агрессия: прицеливание, угрозы. Право на огонь у защитника. Предупредительный выстрел + 3 секунды. Красная зона 20 минут. Запрещены дропшот, мунволк, кемпинг выходов.</p></div>
-                    <div class="rules-section"><h3>8. Социальные взаимодействия</h3><p>Пленение: требуется RP-причина, не более 2 часов. Пленный обязан отыгрывать 1 час. Гоп-стоп: бандиты и сталкеры от 2 чел, отнять одну вещь с заменой.</p></div>
-                    <div class="rules-section"><h3>9. Медицина, радиация, ПСИ</h3><p>Тяжёлое ранение = NLR. Амнезиак – 10 часов новой личности. Радиация без противогаза – смерть. ПСИ-излучение не более 10 часов.</p></div>
-                    <div class="rules-section"><h3>10. Экипировка и лимиты</h3><p>Комплекты брони носятся полностью. Лимиты: ТБ – 5, Экзо – 3. Запрещена матрешка.</p></div>
-                    <div class="rules-section"><h3>11. Транспорт</h3><p>Угон и уничтожение ТС запрещены. Остановка – предупредительный выстрел без глушителя. По вертолётам не стрелять.</p></div>
-                    <div class="rules-section"><h3>12. Зоны и территории</h3><p>ЗЗ: Деревня новичков, Бар, Янов – запрещено насилие. МБЗ – хозяева могут задерживать. Убегать в ЗЗ от преследования – через 10 минут.</p></div>
-                    <div class="rules-section"><h3>13. Рейды и штурмы</h3><p>Рейды (цель – нажива) не чаще 3 раз в неделю. Штурмы (RP-задача) – уведомление за 2 часа. Запрещено РПГ, мины, напалм.</p></div>
-                    <div class="rules-section"><h3>14. Специальные ивенты</h3><p>ПСИ-вышки (Монолит), Ритуал (Грех), Война группировок. Всё согласуется с администрацией.</p></div>
-                    <div class="rules-section"><h3>15. Спец-роли</h3><p>Техник – ремонт, снятие экзоскелета. Ботаник – выращивание трав. Медик-исследователь – амнезиак.</p></div>
-                    <div class="rules-section"><h3>16-17. Группировки и отношения</h3><p>Каждая ГП имеет лидера и замов. Союзы не более 2, войны через одобрение админа.</p></div>
-                    <div class="rules-section"><h3>18. Обычные группировки</h3><p>ОКСОП (конфискация оружия), Долг (артефакты), Свобода (части мутантов), Учёные (исследования), Бандиты (задержания без причины), Наёмники (контракты), Нейтралы (садоводство), Чистое Небо (исследования).</p></div>
-                    <div class="rules-section"><h3>19. Фанатичные ГП</h3><p>Монолит и Грех – на них не действует PG. Запрещено заходить в ЗЗ и МБЗ. Адепты через спецпредмет.</p></div>
-                    <div class="rules-section"><h3>20. Экономика</h3><p>Торговля разрешена, наценка не более 50%. Запрещён дюп.</p></div>
-                    <div class="rules-section"><h3>21. Администрация и жалобы</h3><p>Жалобы только через тикет с видеофиксацией. Ложные жалобы – бан.</p></div>
+                    <!-- 21 раздел правил (аккордеон) -->
+                    <div class="rules-section"><h3><span>1. Введение</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p><strong>1.1 Юрисдикция:</strong> Подключаясь к серверу, игрок соглашается с правилами. Незнание не освобождает от ответственности. Администрация вправе изменять правила с уведомлением в Discord.</p><p><strong>1.2 Политика проекта:</strong> Тематика – S.T.A.L.K.E.R. (постапокалиптика). Возраст игрока от 14 лет, персонажа от 18 лет.</p></div></div>
+                    <div class="rules-section"><h3><span>2. Термины и определения</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p><strong>RP</strong> – ролевая игра. <strong>IC/OOC</strong> – игровая/реальная информация. <strong>RDM</strong> – убийство без RP-причины. <strong>PG</strong> – отсутствие страха за жизнь. <strong>NLR</strong> – после тяжёлого ранения забыть события 15 минут. <strong>Ruleplay</strong> – использование буквы правил в ущерб духу RP.</p><p><strong>Зелёные зоны (ЗЗ):</strong> Деревня новичков, Бар, Янов – запрещено насилие. <strong>Красные зоны (КЗ):</strong> зоны активных перестрелок.</p></div></div>
+                    <div class="rules-section"><h3><span>3. Система наказаний</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>Предупреждение, мут, ограничение роли, временный бан, перманентный бан. 3 предупреждения за месяц = мут 3 дня. Обход бана = пермач. Апелляции через тикет Discord.</p></div></div>
+                    <div class="rules-section"><h3><span>4. Этика и коммуникация</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>ООС-чат (Enter) – только технические вопросы. Запрещены оскорбления, дискриминация, политика, NSFW-контент, реклама.</p></div></div>
+                    <div class="rules-section"><h3><span>5. Технические требования</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>Один игрок – один аккаунт. Никнейм транслитом. Запрещены читы, баги (дропшот, мунволк, матрешка).</p></div></div>
+                    <div class="rules-section"><h3><span>6. Отыгрыш персонажа</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>FearRP – персонаж ценит жизнь. Идентификация только по удостоверению.</p></div></div>
+                    <div class="rules-section"><h3><span>7. Боевые механики</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>Агрессия: прицеливание, угрозы. Право на огонь у защитника. Предупредительный выстрел + 3 секунды. Красная зона 20 минут. Запрещены дропшот, мунволк, кемпинг выходов.</p></div></div>
+                    <div class="rules-section"><h3><span>8. Социальные взаимодействия</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>Пленение: требуется RP-причина, не более 2 часов. Пленный обязан отыгрывать 1 час. Гоп-стоп: бандиты и сталкеры от 2 чел, отнять одну вещь с заменой.</p></div></div>
+                    <div class="rules-section"><h3><span>9. Медицина, радиация, ПСИ</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>Тяжёлое ранение = NLR. Амнезиак – 10 часов новой личности. Радиация без противогаза – смерть. ПСИ-излучение не более 10 часов.</p></div></div>
+                    <div class="rules-section"><h3><span>10. Экипировка и лимиты</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>Комплекты брони носятся полностью. Лимиты: ТБ – 5, Экзо – 3. Запрещена матрешка.</p></div></div>
+                    <div class="rules-section"><h3><span>11. Транспорт</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>Угон и уничтожение ТС запрещены. Остановка – предупредительный выстрел без глушителя. По вертолётам не стрелять.</p></div></div>
+                    <div class="rules-section"><h3><span>12. Зоны и территории</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>ЗЗ: Деревня новичков, Бар, Янов – запрещено насилие. МБЗ – хозяева могут задерживать. Убегать в ЗЗ от преследования – через 10 минут.</p></div></div>
+                    <div class="rules-section"><h3><span>13. Рейды и штурмы</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>Рейды (цель – нажива) не чаще 3 раз в неделю. Штурмы (RP-задача) – уведомление за 2 часа. Запрещено РПГ, мины, напалм.</p></div></div>
+                    <div class="rules-section"><h3><span>14. Специальные ивенты</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>ПСИ-вышки (Монолит), Ритуал (Грех), Война группировок. Всё согласуется с администрацией.</p></div></div>
+                    <div class="rules-section"><h3><span>15. Спец-роли</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>Техник – ремонт, снятие экзоскелета. Ботаник – выращивание трав. Медик-исследователь – амнезиак.</p></div></div>
+                    <div class="rules-section"><h3><span>16-17. Группировки и отношения</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>Каждая ГП имеет лидера и замов. Союзы не более 2, войны через одобрение админа.</p></div></div>
+                    <div class="rules-section"><h3><span>18. Обычные группировки</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>ОКСОП (конфискация оружия), Долг (артефакты), Свобода (части мутантов), Учёные (исследования), Бандиты (задержания без причины), Наёмники (контракты), Нейтралы (садоводство), Чистое Небо (исследования).</p></div></div>
+                    <div class="rules-section"><h3><span>19. Фанатичные ГП</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>Монолит и Грех – на них не действует PG. Запрещено заходить в ЗЗ и МБЗ. Адепты через спецпредмет.</p></div></div>
+                    <div class="rules-section"><h3><span>20. Экономика</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>Торговля разрешена, наценка не более 50%. Запрещён дюп.</p></div></div>
+                    <div class="rules-section"><h3><span>21. Администрация и жалобы</span> <i class="fas fa-chevron-down"></i></h3><div class="accordion-content"><p>Жалобы только через тикет с видеофиксацией. Ложные жалобы – бан.</p></div></div>
                     <p style="margin-top: 20px; text-align: right; opacity:0.7;">© NEXUS RP — Полный свод правил проекта.</p>
                 </div>
             </div>
@@ -807,20 +852,111 @@
     </div>
 </div>
 
-<!-- Радио плеер -->
+<!-- Радио плеер (ваши треки, без кнопки загрузки) -->
 <div class="radio-player" id="radioPlayer">
-    <i class="fas fa-broadcast-tower radio-icon"></i>
-    <span class="radio-title">Радио Свободы</span>
-    <div class="radio-controls">
-        <button class="radio-btn" id="prevTrack"><i class="fas fa-backward-step"></i></button>
-        <button class="radio-btn" id="playPauseBtn"><i class="fas fa-play"></i></button>
-        <button class="radio-btn" id="nextTrack"><i class="fas fa-forward-step"></i></button>
+    <div class="row">
+        <i class="fas fa-broadcast-tower radio-icon"></i>
+        <span class="radio-title">Радио Свободы</span>
     </div>
-    <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.01" value="0.5">
-    <span class="track-name" id="trackName">Трек 1</span>
+    <div class="row">
+        <select id="trackSelect" class="track-select"></select>
+        <div class="radio-controls">
+            <button class="radio-btn" id="prevTrack"><i class="fas fa-backward-step"></i></button>
+            <button class="radio-btn" id="playPauseBtn"><i class="fas fa-play"></i></button>
+            <button class="radio-btn" id="nextTrack"><i class="fas fa-forward-step"></i></button>
+        </div>
+        <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.01" value="0.5">
+    </div>
 </div>
 
 <script>
+    // ========== РАДИО ПЛЕЕР С ВАШИМИ ТРЕКАМИ ==========
+    // ЗАМЕНИТЕ ЭТОТ СПИСОК НА ВАШИ ТРЕКИ (пути к MP3-файлам)
+    let trackList = [
+        { name: "Мой трек 1", url: "player.mp3" },
+        { name: "Мой трек 2", url: "player1.mp3" },
+        { name: "Мой трек 3", url: "player2.mp3" }
+    ];
+    let currentTrackIndex = 0;
+    let audio = new Audio(trackList[0].url);
+    audio.volume = 0.5;
+    let isPlaying = false;
+
+    const trackSelect = document.getElementById('trackSelect');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const prevBtn = document.getElementById('prevTrack');
+    const nextBtn = document.getElementById('nextTrack');
+    const volumeSlider = document.getElementById('volumeSlider');
+
+    function updateTrackSelect() {
+        trackSelect.innerHTML = '';
+        trackList.forEach((track, idx) => {
+            const option = document.createElement('option');
+            option.value = idx;
+            option.textContent = track.name;
+            if (idx === currentTrackIndex) option.selected = true;
+            trackSelect.appendChild(option);
+        });
+    }
+
+    function loadTrack(index) {
+        if (index < 0) index = 0;
+        if (index >= trackList.length) index = trackList.length - 1;
+        currentTrackIndex = index;
+        const track = trackList[currentTrackIndex];
+        audio.src = track.url;
+        updateTrackSelect();
+        if (isPlaying) audio.play().catch(e => console.log("Автовоспроизведение заблокировано"));
+    }
+
+    function playTrack() {
+        audio.play().then(() => {
+            isPlaying = true;
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        }).catch(() => {
+            isPlaying = false;
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        });
+    }
+    function pauseTrack() {
+        audio.pause();
+        isPlaying = false;
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+    }
+    function nextTrack() {
+        if (trackList.length === 0) return;
+        currentTrackIndex = (currentTrackIndex + 1) % trackList.length;
+        loadTrack(currentTrackIndex);
+        if (isPlaying) playTrack();
+    }
+    function prevTrack() {
+        if (trackList.length === 0) return;
+        currentTrackIndex = (currentTrackIndex - 1 + trackList.length) % trackList.length;
+        loadTrack(currentTrackIndex);
+        if (isPlaying) playTrack();
+    }
+
+    trackSelect.addEventListener('change', (e) => {
+        const idx = parseInt(e.target.value);
+        if (!isNaN(idx) && idx !== currentTrackIndex) {
+            currentTrackIndex = idx;
+            loadTrack(currentTrackIndex);
+            if (isPlaying) playTrack();
+        }
+    });
+    playPauseBtn.addEventListener('click', () => {
+        if (trackList.length === 0) return;
+        isPlaying ? pauseTrack() : playTrack();
+    });
+    prevBtn.addEventListener('click', prevTrack);
+    nextBtn.addEventListener('click', nextTrack);
+    volumeSlider.addEventListener('input', (e) => { audio.volume = e.target.value; });
+    audio.addEventListener('ended', () => { nextTrack(); });
+
+    updateTrackSelect();
+    loadTrack(0);
+    audio.volume = volumeSlider.value;
+
     // ========== МОДАЛЬНЫЕ ОКНА (особенности и фракции) ==========
     const featuresData = {
         radiation: { title: "Радиация & Аномалии", img: "https://via.placeholder.com/500x280?text=Аномалия+и+артефакт", desc: "Зона полна смертельных аномалий. Артефакты дают баффы, но добыча опасна. Радиация требует дозиметра и антирадов." },
@@ -842,7 +978,6 @@
         monolith: { name: "Монолит", img: "https://via.placeholder.com/500x280?text=Монолит", desc: "Секта, поклонение Монолиту. Фанатики, на них не действует PG." }
     };
     const factionOrder = ["oksop","neutral","bandits","sin","duty","freedom","renegades","mercs","clearSky","monolith"];
-
     const modal = document.getElementById('featureModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.getElementById('modalBody');
@@ -902,33 +1037,26 @@
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
 
-    // ========== РАДИО ПЛЕЕР ==========
-    const trackList = [
-        { name: "Ambient Zone", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-        { name: "Stalker Radio", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-        { name: "Freedom Call", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
-        { name: "Dead City", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" }
-    ];
-    let currentTrack = 0, audio = new Audio(trackList[0].url), isPlaying = false;
-    audio.volume = 0.5;
-    const playPause = document.getElementById('playPauseBtn'), prev = document.getElementById('prevTrack'), next = document.getElementById('nextTrack'), volSlider = document.getElementById('volumeSlider'), trackNameSpan = document.getElementById('trackName');
-    function updateTrack() { trackNameSpan.textContent = trackList[currentTrack].name; audio.src = trackList[currentTrack].url; if (isPlaying) audio.play().catch(e => console.log); }
-    function playTrack() { audio.play().then(() => { isPlaying = true; playPause.innerHTML = '<i class="fas fa-pause"></i>'; }).catch(() => { isPlaying = false; playPause.innerHTML = '<i class="fas fa-play"></i>'; }); }
-    function pauseTrack() { audio.pause(); isPlaying = false; playPause.innerHTML = '<i class="fas fa-play"></i>'; }
-    playPause.addEventListener('click', () => { isPlaying ? pauseTrack() : playTrack(); });
-    prev.addEventListener('click', () => { currentTrack = (currentTrack - 1 + trackList.length) % trackList.length; updateTrack(); if (isPlaying) playTrack(); else audio.src = trackList[currentTrack].url; });
-    next.addEventListener('click', () => { currentTrack = (currentTrack + 1) % trackList.length; updateTrack(); if (isPlaying) playTrack(); else audio.src = trackList[currentTrack].url; });
-    volSlider.addEventListener('input', (e) => { audio.volume = e.target.value; });
-    audio.addEventListener('ended', () => { next.click(); });
-    trackNameSpan.textContent = trackList[0].name; audio.volume = volSlider.value;
+    // ========== ТАБЫ, БУРГЕР, КОПИРОВАНИЕ, ПОИСК, АККОРДЕОН ==========
+    function initAccordion() {
+        const sections = document.querySelectorAll('#rulesContent .rules-section');
+        sections.forEach(section => {
+            const header = section.querySelector('h3');
+            header.addEventListener('click', () => {
+                section.classList.toggle('open');
+            });
+        });
+    }
 
-    // ========== ТАБЫ, БУРГЕР, КОПИРОВАНИЕ, ПОИСК ==========
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
     function switchTab(tabId) {
         tabContents.forEach(c => c.classList.remove('active-tab'));
         document.getElementById(tabId)?.classList.add('active-tab');
         tabBtns.forEach(btn => { btn.classList.remove('active'); if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active'); });
+        if (tabId === 'rules') {
+            setTimeout(() => { initAccordion(); }, 50);
+        }
     }
     tabBtns.forEach(btn => { btn.addEventListener('click', () => { switchTab(btn.getAttribute('data-tab')); if (navLinks.classList.contains('active')) navLinks.classList.remove('active'); }); });
     const burger = document.getElementById('burgerBtn'), navLinks = document.getElementById('navLinks');
@@ -944,21 +1072,57 @@
 
     // ========== ПОИСК ПО ПРАВИЛАМ ==========
     const rulesContainer = document.getElementById('rulesContent');
-    const originalRulesHtml = rulesContainer.innerHTML;
     const searchInputRules = document.getElementById('rulesSearchInput');
     const searchBtnRules = document.getElementById('searchRulesBtn');
     const clearBtnRules = document.getElementById('clearSearchBtn');
     function highlightText(searchTerm) {
-        if (!searchTerm.trim()) { rulesContainer.innerHTML = originalRulesHtml; return; }
+        if (!searchTerm.trim()) {
+            const sections = document.querySelectorAll('#rulesContent .rules-section');
+            sections.forEach(section => {
+                section.classList.remove('open');
+                const contentDiv = section.querySelector('.accordion-content');
+                if (contentDiv) contentDiv.innerHTML = contentDiv.innerHTML.replace(/<span class="highlight">(.*?)<\/span>/gi, '$1');
+            });
+            return;
+        }
         const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-        const newHtml = originalRulesHtml.replace(regex, `<span class="highlight">$1</span>`);
-        rulesContainer.innerHTML = newHtml;
-        const firstHighlight = rulesContainer.querySelector('.highlight');
-        if (firstHighlight) firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const sections = document.querySelectorAll('#rulesContent .rules-section');
+        let foundAny = false;
+        sections.forEach(section => {
+            const contentDiv = section.querySelector('.accordion-content');
+            if (!contentDiv) return;
+            const originalText = contentDiv.getAttribute('data-original') || contentDiv.innerHTML;
+            if (!contentDiv.getAttribute('data-original')) contentDiv.setAttribute('data-original', originalText);
+            let newHtml = contentDiv.getAttribute('data-original');
+            if (regex.test(newHtml)) {
+                foundAny = true;
+                section.classList.add('open');
+                newHtml = newHtml.replace(regex, `<span class="highlight">$1</span>`);
+                contentDiv.innerHTML = newHtml;
+            } else {
+                if (section.classList.contains('open')) section.classList.remove('open');
+                contentDiv.innerHTML = contentDiv.getAttribute('data-original');
+            }
+        });
+        if (foundAny) {
+            const firstHighlight = rulesContainer.querySelector('.highlight');
+            if (firstHighlight) firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
     }
     searchBtnRules.addEventListener('click', () => highlightText(searchInputRules.value));
-    clearBtnRules.addEventListener('click', () => { searchInputRules.value = ''; rulesContainer.innerHTML = originalRulesHtml; });
+    clearBtnRules.addEventListener('click', () => {
+        searchInputRules.value = '';
+        const sections = document.querySelectorAll('#rulesContent .rules-section');
+        sections.forEach(section => {
+            section.classList.remove('open');
+            const contentDiv = section.querySelector('.accordion-content');
+            if (contentDiv && contentDiv.getAttribute('data-original')) {
+                contentDiv.innerHTML = contentDiv.getAttribute('data-original');
+            }
+        });
+    });
     searchInputRules.addEventListener('keypress', (e) => { if (e.key === 'Enter') highlightText(searchInputRules.value); });
+    initAccordion();
 </script>
 </body>
 </html>
