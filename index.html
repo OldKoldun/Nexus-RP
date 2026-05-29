@@ -11,7 +11,7 @@
 <body>
 
 <video class="video-background" autoplay loop muted playsinline>
-    <source src="video.mp4" type="video/mp4">
+    <source src="video/video.mp4" type="video/mp4">
 </video>
 <div class="overlay"></div>
 <div class="noise-texture"></div>
@@ -19,7 +19,7 @@
 <header class="header">
     <div class="container nav-bar">
         <div class="logo" id="logoHome">
-            <img class="logo-img" src="Nexus.jpg" alt="Логотип NEXUS RP">
+            <img class="logo-img" src="pictur/Nexus.jpg" alt="Логотип NEXUS RP">
             <div class="logo-text">
                 <h1>𝐍𝐄𝐗𝐔𝐒 𝐑𝐏</h1>
                 <p>⎯  OBT STALKER RP / DayZ ⎯</p>
@@ -31,7 +31,7 @@
                 <li><button class="tab-btn" data-tab="rules">Правила</button></li>
                 <li><button class="tab-btn" data-tab="howto">Как играть</button></li>
                 <li><button class="tab-btn" data-tab="history">История</button></li>
-                <li><button class="tab-btn" data-tab="donate">Донат</button></li>
+                <li><button class="tab-btn" data-tab="donate">Магазин</button></li>
                 <li><button class="tab-btn" data-tab="development">Разработки</button></li>
             </ul>
         </div>
@@ -46,35 +46,56 @@
 <main>
     <div class="container">
         <div id="tabContainer">
-            <!-- О нас (с hero-блоком) -->
-            <div id="about" class="tab-content active-tab">
-                <div class="hero">
-                    <h2>𝐍𝐄𝐗𝐔𝐒 𝐑𝐏</h2>
-                    <div class="hero-sub">「 OBT STALKER RP / DayZ 」</div>
-                    <p class="hero-description">Уникальный гибрид атмосферы S.T.A.L.K.E.R. и механик DayZ. Аномалии, артефакты, мутанты, войны кланов и полный RP-откуп. Твой путь начинается в Зоне — выживи или стань легендой.</p>
-                    <div class="btn-group">
-                        <a href="#" class="btn btn-primary" id="startBtn"><i class="fas fa-play"></i> Начать выживание</a>
-                        <a href="#" class="btn btn-outline" id="copyIpBtn"><i class="fas fa-copy"></i> IP сервера</a>
-                    </div>
-                </div>
-                <h2 class="section-title"><span>О ПРОЕКТЕ</span></h2>
-                <div class="about-text"><p>NEXUS RP — авторская сборка, объединяющая мрачную эстетику вселенной S.T.A.L.K.E.R. и хардкорный выживач DayZ. Фракции, кастомная экономика, радиация, аномалии. Полное погружение в роль.</p></div>
-                <h2 class="section-title"><span>ОСОБЕННОСТИ</span></h2>
-                <div class="features-grid">
-                    <div class="feature-card" data-feature="radiation"><div class="feature-icon"><i class="fas fa-radiation"></i></div><h3>Радиация & Аномалии</h3><p>Артефакты, грави-аномалии и опасные зоны.</p></div>
-                    <div class="feature-card" data-feature="factions"><div class="feature-icon"><i class="fas fa-users"></i></div><h3>RP-фракции</h3><p>10 уникальных группировок Зоны.</p></div>
-                    <div class="feature-card" data-feature="world"><div class="feature-icon"><i class="fas fa-map-marked-alt"></i></div><h3>Кастомный мир</h3><p>Расширенная карта Зоны + секретные бункеры.</p></div>
-                    <div class="feature-card" data-feature="economy"><div class="feature-icon"><i class="fas fa-trophy"></i></div><h3>Экономика и квесты</h3><p>Торговцы, бартер, охота за артефактами.</p></div>
-                    <div class="feature-card" data-feature="dayz"><div class="feature-icon"><i class="fas fa-shield-virus"></i></div><h3>DayZ-механики</h3><p>Болезни, переломы, кровотечения.</p></div>
-                    <div class="feature-card" data-feature="voice"><div class="feature-icon"><i class="fas fa-microphone-alt"></i></div><h3>VoiceRP</h3><p>Радиосвязь, эмоции через команды.</p></div>
-                </div>
-                <h2 class="section-title"><span>СВЯЗЬ & ПРИСОЕДИНЕНИЕ</span></h2>
-                <div class="contact-block">
-                    <div class="contact-card"><i class="fab fa-discord"></i><h4>Discord</h4><p>nexus-rp.zone</p><button class="copy-ip" id="copyDiscordBtn">Скопировать приглашение</button></div>
-                    <div class="contact-card"><i class="fas fa-server"></i><h4>IP сервера</h4><p><strong>play.nexusrp.ru</strong></p><button class="copy-ip" id="copyIpButton"><i class="fas fa-copy"></i> Скопировать IP</button></div>
-                    <div class="contact-card"><i class="fas fa-headset"></i><h4>Тикеты</h4><p>@Support в Discord</p></div>
-                </div>
+<!-- О нас -->
+<div id="about" class="tab-content active-tab">
+    <div class="hero">
+        <h2>𝐍𝐄𝐗𝐔𝐒 𝐑𝐏</h2>
+        <div class="hero-sub">「 OBT STALKER RP / DayZ 」</div>
+        <p class="hero-description">Уникальный гибрид вселенной S.T.A.L.K.E.R. и хардкорных механик DayZ. Аномалии, артефакты, мутанты, войны кланов и полный RP-откуп. Твой путь начинается в Зоне — выживи или стань легендой.</p>
+        <div class="btn-group">
+            <a href="#" class="btn btn-primary" id="startBtn"><i class="fas fa-play"></i> Начать выживание</a>
+            <a href="#" class="btn btn-outline" id="copyIpBtn"><i class="fas fa-copy"></i> IP сервера</a>
+        </div>
+    </div>
+
+    <h2 class="section-title"><span>О ПРОЕКТЕ</span></h2>
+    <div class="about-enhanced">
+        <div class="about-main">
+            <p><strong>NEXUS RP</strong> — это авторская сборка, которая объединяет мрачную постапокалиптическую атмосферу S.T.A.L.K.E.R. и жёсткие реалистичные механики выживания из DayZ. Мы создаём уникальный игровой опыт, где каждое ваше решение влияет на развитие сюжета и мир вокруг. Полное погружение в роль, живой динамический мир, враждующие фракции и непредсказуемые аномалии — добро пожаловать в Зону.</p>
+        </div>
+        <div class="about-stats">
+            <div class="stat-item">
+                <i class="fas fa-users"></i>
+                <span>250+ активных сталкеров</span>
             </div>
+            <div class="stat-item">
+                <i class="fas fa-map-marked-alt"></i>
+                <span>15 уникальных локаций</span>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-trophy"></i>
+                <span>Еженедельные ивенты</span>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title"><span>ОСОБЕННОСТИ</span></h2>
+    <div class="features-grid">
+        <div class="feature-card" data-feature="radiation"><div class="feature-icon"><i class="fas fa-radiation"></i></div><h3>Радиация и аномалии</h3><p>Исследуй опасные зоны, находи артефакты и избегай смертельных аномалий.</p></div>
+        <div class="feature-card" data-feature="factions"><div class="feature-icon"><i class="fas fa-users"></i></div><h3>RP-фракции</h3><p>10 уникальных группировок со своей идеологией и возможностью влиять на ход войны в Зоне.</p></div>
+        <div class="feature-card" data-feature="world"><div class="feature-icon"><i class="fas fa-map-marked-alt"></i></div><h3>Кастомный мир</h3><p>Расширенная карта Зоны: от Припяти до Кордона, секретные бункеры и подземелья.</p></div>
+        <div class="feature-card" data-feature="economy"><div class="feature-icon"><i class="fas fa-trophy"></i></div><h3>Экономика и квесты</h3><p>Динамические цены, торговцы, бартер и захватывающие сюжетные задания.</p></div>
+        <div class="feature-card" data-feature="dayz"><div class="feature-icon"><i class="fas fa-shield-virus"></i></div><h3>DayZ-механики</h3><p>Болезни, переломы, кровотечения, износ оружия — реализм на максимуме.</p></div>
+        <div class="feature-card" data-feature="voice"><div class="feature-icon"><i class="fas fa-microphone-alt"></i></div><h3>VoiceRP</h3><p>Полноценная голосовая ролевая игра с тактильной радиосвязью и эмоциями через команды.</p></div>
+    </div>
+
+    <h2 class="section-title"><span>СВЯЗЬ И ПРИСОЕДИНЕНИЕ</span></h2>
+    <div class="contact-block">
+        <div class="contact-card"><i class="fab fa-discord"></i><h4>Discord</h4><p>nexus-rp.zone</p><button class="copy-ip" id="copyDiscordBtn">Скопировать приглашение</button></div>
+        <div class="contact-card"><i class="fas fa-server"></i><h4>IP сервера</h4><p><strong>play.nexusrp.ru</strong></p><button class="copy-ip" id="copyIpButton"><i class="fas fa-copy"></i> Скопировать IP</button></div>
+        <div class="contact-card"><i class="fas fa-headset"></i><h4>Тикеты</h4><p>@Support в Discord</p></div>
+    </div>
+</div>
 
             <!-- Правила -->
             <div id="rules" class="tab-content">
@@ -101,15 +122,67 @@
             </div>
 
             <!-- Как играть -->
-            <div id="howto" class="tab-content">
-                <h2 class="section-title"><span>КАК СТАТЬ СТАЛКЕРОМ</span></h2>
-                <div class="steps">
-                    <div class="step-item"><div class="step-number">1</div><h3>Установка DayZ</h3><p>Лицензионная версия DayZ Standalone.</p></div>
-                    <div class="step-item"><div class="step-number">2</div><h3>Мод-пак</h3><p>Скачай через Discord наш лаунчер NEXUS RP.</p></div>
-                    <div class="step-item"><div class="step-number">3</div><h3>Регистрация</h3><p>Анкета и создание персонажа.</p></div>
-                    <div class="step-item"><div class="step-number">4</div><h3>IP: play.nexusrp.ru</h3><p>Добро пожаловать в Зону!</p></div>
-                </div>
+<div id="howto" class="tab-content">
+    <h2 class="section-title"><span>КАК СТАТЬ СТАЛКЕРОМ</span></h2>
+    <div class="howto-grid">
+        <!-- Карточка 1: установка DayZ -->
+        <div class="howto-card">
+            <div class="howto-card-image">
+                <img src="pictur/photo1.png" alt="Установка DayZ">
             </div>
+            <div class="howto-card-content">
+                <div class="howto-step">Шаг 1</div>
+                <h3>Установка DayZ</h3>
+                <p>Приобретите и установите лицензионную версию DayZ Standalone через Steam. Убедитесь, что игра обновлена до последней версии.</p>
+            </div>
+        </div>
+        <!-- Карточка 2: скачать мод-пак -->
+        <div class="howto-card">
+            <div class="howto-card-image">
+                <img src="pictur/photo2.jpg" alt="Мод-пак">
+            </div>
+            <div class="howto-card-content">
+                <div class="howto-step">Шаг 2</div>
+                <h3>Скачать мод-пак</h3>
+                <p>Перейди в наш Discord-канал, найди раздел #моды и скачай лаунчер NEXUS RP. Установи все необходимые моды автоматически.</p>
+            </div>
+        </div>
+        <!-- Карточка 3: регистрация -->
+        <div class="howto-card">
+            <div class="howto-card-image">
+                <img src="pictur/photo3.png" alt="Регистрация">
+            </div>
+            <div class="howto-card-content">
+                <div class="howto-step">Шаг 3</div>
+                <h3>Регистрация</h3>
+                <p>Заполни анкету на сайте или в Discord, создай уникального персонажа и дождись одобрения администрации.</p>
+            </div>
+        </div>
+        <!-- Карточка 4: IP сервера -->
+        <div class="howto-card">
+            <div class="howto-card-image">
+                <img src="pictur/photo4.png" alt="Подключение">
+            </div>
+            <div class="howto-card-content">
+                <div class="howto-step">Шаг 4</div>
+                <h3>IP сервера</h3>
+                <p><strong>play.nexusrp.ru</strong> (порт 2302). Скопируй IP и вставь в лаунчер DayZ. Добро пожаловать в Зону!</p>
+            </div>
+        </div>
+        <!-- Карточка с видео (пример YouTube) -->
+        <div class="howto-card howto-card-video">
+            <div class="howto-card-image">
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Гайд по установке" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="howto-card-content">
+                <div class="howto-step">Видео-гайд</div>
+                <h3>Подробная видеоинструкция</h3>
+                <p>Нажми на плеер, чтобы посмотреть гайд по установке и настройке модов.</p>
+            </div>
+        </div>
+        <!-- Добавьте свои карточки по аналогии -->
+    </div>
+</div>
 
             <!-- История -->
             <div id="history" class="tab-content">
@@ -120,14 +193,14 @@
                 </div>
             </div>
 
-            <!-- Донат -->
-            <div id="donate" class="tab-content">
-                <div class="dev-block">
-                    <i class="fas fa-gift dev-icon"></i>
-                    <div class="dev-title">Донат</div>
-                    <div class="dev-text">Раздел доната временно недоступен. Скоро вы сможете поддержать проект и получить уникальные привилегии. Следите за новостями в Discord!</div>
-                </div>
-            </div>
+			<!-- Магазин -->
+			<div id="donate" class="tab-content">
+				<div class="dev-block">
+					<i class="fas fa-store" style="font-size: 2.5rem; margin-bottom: 15px;"></i>
+					<div class="dev-title">Магазин</div>
+					<div class="dev-text">Магазин временно не работает. В ближайшее время здесь появятся уникальные привилегии, эксклюзивные предметы и бонусы для наших сталкеров. Следите за обновлениями в Discord!</div>
+				</div>
+			</div>
 
             <!-- Разработка -->
             <div id="development" class="tab-content">

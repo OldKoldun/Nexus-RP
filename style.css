@@ -269,7 +269,7 @@ footer { text-align: center; padding: 35px 0; font-size: 0.85rem; color: rgba(14
 .close-modal { font-size: 28px; font-weight: bold; color: #7a9bcb; cursor: pointer; }
 .close-modal:hover { color: #ff8c5a; }
 .modal-body { padding: 20px 24px 30px; text-align: center; }
-.modal-img { width: 100%; max-height: 260px; object-fit: cover; border-radius: 24px; margin-bottom: 20px; border: 1px solid #4682b4; }
+.modal-img {width: 100%; max-height: 300px; object-fit: contain; border-radius: 24px; margin-bottom: 20px; border: 1px solid #4682b4; background: rgba(0,0,0,0.3);}
 .modal-desc { font-size: 1rem; line-height: 1.5; color: #caddf0; text-align: left; }
 .steam-modal-text { margin-bottom: 25px; font-size: 1rem; }
 .steam-modal-btn { background: #1f6392; border: none; padding: 10px 20px; border-radius: 40px; color: white; font-weight: bold; cursor: pointer; font-family: 'Source Code Pro', monospace; transition: 0.2s; }
@@ -316,4 +316,200 @@ footer { text-align: center; padding: 35px 0; font-size: 0.85rem; color: rgba(14
     .radio-player { min-width: 240px; padding: 8px 12px; }
     .track-select { max-width: 120px; }
     .volume-slider { width: 60px; }
+}
+/* ===== СТИЛИ ДЛЯ АВТОДОПОЛНЕНИЯ (ПОДСКАЗОК) ===== */
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(10, 30, 48, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid #3a86c8;
+    border-top: none;
+    border-radius: 0 0 20px 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 200;
+    display: none;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+.suggestion-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.85rem;
+    color: #caddf0;
+    border-bottom: 1px solid rgba(70, 130, 200, 0.3);
+    transition: 0.1s;
+}
+.suggestion-item:hover {
+    background: #1f6392;
+    color: white;
+}
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+/* ===== НОВЫЙ ДИЗАЙН ДЛЯ РАЗДЕЛА "КАК ИГРАТЬ" ===== */
+.howto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+.howto-card {
+    background: rgba(10, 30, 48, 0.7);
+    backdrop-filter: blur(8px);
+    border-radius: 24px;
+    border: 1px solid rgba(60, 120, 180, 0.5);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.howto-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px -5px rgba(50, 100, 150, 0.4);
+    border-color: #6aaee6;
+}
+.howto-card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: #0a1f2e;
+}
+.howto-card-image img,
+.howto-card-image iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: none;
+}
+.howto-card-content {
+    padding: 20px;
+}
+.howto-step {
+    display: inline-block;
+    background: #1f6392;
+    color: #eef5ff;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+.howto-card h3 {
+    font-family: 'Russo One', monospace;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #cbe4fe;
+}
+.howto-card p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: rgba(200, 220, 245, 0.9);
+}
+/* Адаптация для мобильных */
+@media (max-width: 700px) {
+    .howto-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* ===== УЛУЧШЕННЫЙ БЛОК "О ПРОЕКТЕ" ===== */
+.about-enhanced {
+    background: rgba(0,30,45,0.65);
+    border-radius: 32px;
+    padding: 35px;
+    backdrop-filter: blur(6px);
+    margin-bottom: 40px;
+}
+.about-main p {
+    font-size: 1.15rem;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+.about-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    border-top: 1px solid rgba(70,130,200,0.3);
+    border-bottom: 1px solid rgba(70,130,200,0.3);
+}
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    color: #9ac4e4;
+}
+.stat-item i {
+    font-size: 1.5rem;
+    color: #6aabd9;
+}
+.about-subtitle {
+    font-family: 'Russo One', monospace;
+    font-size: 1.3rem;
+    color: #8bcbff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.about-subtitle i {
+    margin-right: 8px;
+}
+.about-nav-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-top: 10px;
+}
+.nav-card {
+    background: rgba(10,30,48,0.7);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(60,120,180,0.5);
+    border-radius: 20px;
+    padding: 20px 15px;
+    text-align: center;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.nav-card:hover {
+    transform: translateY(-5px);
+    background: #1f6392;
+    border-color: #8bcbff;
+    box-shadow: 0 8px 20px rgba(31,99,146,0.3);
+}
+.nav-card i {
+    font-size: 2rem;
+    color: #6aabd9;
+    margin-bottom: 10px;
+    display: block;
+}
+.nav-card span {
+    font-family: 'Russo One', monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #cbe4fe;
+    display: block;
+    margin-bottom: 8px;
+}
+.nav-card p {
+    font-size: 0.8rem;
+    color: rgba(200,220,245,0.8);
+}
+/* Адаптив */
+@media (max-width: 700px) {
+    .about-nav-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .about-stats {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.dev-block i {
+    font-size: 2.5rem !important;
 }

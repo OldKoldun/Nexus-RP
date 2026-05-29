@@ -746,12 +746,81 @@ function clearHighlight() {
     displayContent.innerHTML = cleanHtml;
 }
 
-// ==== ПОИСК ====
+// ==== ПОИСК С АВТОДОПОЛНЕНИЕМ (выпадающий список) ====
 const searchInput = document.getElementById('rulesSearchInput');
 const searchBtn = document.getElementById('searchRulesBtn');
 const clearBtn = document.getElementById('clearSearchBtn');
 
-function searchAndDisplay() {
+// Создаём контейнер для подсказок
+let suggestionsContainer = document.createElement('div');
+suggestionsContainer.className = 'search-suggestions';
+searchInput.parentNode.style.position = 'relative';
+searchInput.parentNode.appendChild(suggestionsContainer);
+
+// Функция для получения всех разделов, где встречается запрос
+function getMatchingSections(query) {
+    if (!query.trim()) return [];
+    const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+    const matches = [];
+    rulesSections.forEach((section, idx) => {
+        if (regex.test(section.title) || regex.test(section.content)) {
+            matches.push({ index: idx, title: section.title });
+        }
+    });
+    return matches;
+}
+
+// Отобразить подсказки
+function showSuggestions(matches) {
+    suggestionsContainer.innerHTML = '';
+    if (matches.length === 0) {
+        suggestionsContainer.style.display = 'none';
+        return;
+    }
+    matches.slice(0, 8).forEach(match => {
+        const suggestionDiv = document.createElement('div');
+        suggestionDiv.className = 'suggestion-item';
+        suggestionDiv.textContent = match.title;
+        suggestionDiv.addEventListener('click', () => {
+            searchInput.value = ''; // очищаем поле, чтобы скрыть подсказки
+            suggestionsContainer.style.display = 'none';
+            showSection(match.index);
+            // Небольшой хайлайт поискового запроса в содержимом (если нужно)
+            const term = searchInput.value.trim();
+            if (term) {
+                const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+                const highlighted = rulesSections[match.index].content.replace(regex, `<span class="highlight">$1</span>`);
+                displayContent.innerHTML = highlighted;
+                // Прокрутка к первому подсвеченному
+                const firstHighlight = displayContent.querySelector('.highlight');
+                if (firstHighlight) firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+        suggestionsContainer.appendChild(suggestionDiv);
+    });
+    suggestionsContainer.style.display = 'block';
+}
+
+// Скрыть подсказки при клике вне
+document.addEventListener('click', (e) => {
+    if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+        suggestionsContainer.style.display = 'none';
+    }
+});
+
+// Обработка ввода
+searchInput.addEventListener('input', () => {
+    const query = searchInput.value.trim();
+    if (query === '') {
+        suggestionsContainer.style.display = 'none';
+        return;
+    }
+    const matches = getMatchingSections(query);
+    showSuggestions(matches);
+});
+
+// Кнопка "Найти" – первое совпадение (сохраняем для совместимости)
+searchBtn.addEventListener('click', () => {
     const term = searchInput.value.trim();
     if (!term) { clearHighlight(); return; }
     const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
@@ -775,13 +844,14 @@ function searchAndDisplay() {
         showToast('Ничего не найдено');
         clearHighlight();
     }
-}
+});
 
-searchBtn.addEventListener('click', searchAndDisplay);
+// Кнопка "Сброс"
 clearBtn.addEventListener('click', () => {
     searchInput.value = '';
     clearHighlight();
     showSection(currentSectionIndex);
+    suggestionsContainer.style.display = 'none';
 });
 searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') searchAndDisplay(); });
 
@@ -914,18 +984,18 @@ const featuresData = {
     voice: { title: "VoiceRP", img: "https://via.placeholder.com/500x280?text=Рация+и+переговоры", desc: "Рации с частотами, эффект расстояния. Эмоции через /me, /do. Строгий отыгрыш." }
 };
 const factionsData = {
-    oksop: { name: "ОКСОП", img: "718882-shh.png", desc: "Военные, конфискуют запрещённое оружие. Дисциплина, субординация." },
-    neutral: { name: "Нейтралы", img: "https://via.placeholder.com/500x280?text=Нейтралы", desc: "Помощь сталкерам, садоводство на свалке, торговля." },
-    bandits: { name: "Бандиты", img: "https://via.placeholder.com/500x280?text=Бандиты", desc: "Грабежи, рэкет, контрабанда. Могут задерживать без причины." },
-    sin: { name: "Грех", img: "https://via.placeholder.com/500x280?text=Грех", desc: "Религиозные фанатики, очищение Зоны. Агрессивны к чужакам." },
-    duty: { name: "Долг", img: "https://via.placeholder.com/500x280?text=Долг", desc: "Защита человечества, изъятие артефактов. Строгий устав." },
-    freedom: { name: "Свобода", img: "https://via.placeholder.com/500x280?text=Свобода", desc: "Анархисты, свободное изучение Зоны. Конфискуют части мутантов." },
-    renegades: { name: "Ренегаты", img: "https://via.placeholder.com/500x280?text=Ренегаты", desc: "Изгои, нападают на всех. Скрываются в болотах." },
-    mercs: { name: "Наёмники", img: "https://via.placeholder.com/500x280?text=Наёмники", desc: "Профессионалы за деньги. Контракты на убийство." },
-    clearSky: { name: "Чистое Небо", img: "https://via.placeholder.com/500x280?text=Чистое+Небо", desc: "Учёные, исследователи. Разработка детекторов и медикаментов." },
-    monolith: { name: "Монолит", img: "https://via.placeholder.com/500x280?text=Монолит", desc: "Секта, поклонение Монолиту. Фанатики, на них не действует PG." }
+    oksop: { name: "ОКСОП", img: "pictur/soldier.webp", desc: "Военные, поддерживающие порядок в Зоне. Конфискуют запрещённое оружие и артефакты у сталкеров. Строгая субординация и дисциплина. Младшие чины могут заниматься коррупцией, старшие – пресекать." },
+    neutral: { name: "Нейтралы", img: "pictur/neutral.webp", desc: "Сталкеры, не входящие в крупные группировки. Занимаются сбором электроники, охотой на мутантов и торговлей. Основной доход – выращивание радиоактивных овощей на свалке." },
+    bandits: { name: "Бандиты", img: "pictur/bandit.webp", desc: "Криминальные элементы, промышляющие грабежами и рэкетом. Могут задерживать сталкеров без причины (кроме ЗЗ и Кордона). Способны грабить вдвоём, но избегают открытых столкновений с крупными силами." },
+    sin: { name: "Грех", img: "pictur/bandit3.webp", desc: "Религиозные фанатики, стремящиеся очистить Зону от «неверных». Агрессивны к чужакам, используют мутантов и психотропное оружие. Одержимы идеей защиты алтарей." },
+    duty: { name: "Долг", img: "pictur/dolg.webp", desc: "Военизированная организация, цель которой – уничтожение Зоны и недопущение выноса артефактов. Носят строгую форму, соблюдают устав. Изъятие артефактов у сталкеров – святая обязанность." },
+    freedom: { name: "Свобода", img: "pictur/freedom.webp", desc: "Анархисты, выступающие за свободное изучение Зоны и доступ к артефактам для всех. Противостоят Долгу. Конфискуют и хоронят части мутантов как «дань природе»." },
+    renegades: { name: "Ренегаты", img: "pictur/bandit2.webp", desc: "Изгои, предавшие свои фракции. Прячутся в болотах, нападают на всех подряд. Не брезгуют ничем – грабят, убивают, используют любые методы выживания." },
+    mercs: { name: "Наёмники", img: "pictur/merc.webp", desc: "Профессиональные солдаты удачи, работающие за деньги. Выполняют контракты на убийство, охрану, добычу артефактов. Работают скрыто, не афишируют заказчиков." },
+    clearSky: { name: "Чистое Небо", img: "pictur/nebo.webp", desc: "Учёные-исследователи, стремящиеся понять природу Зоны. Разрабатывают детекторы, медикаменты, сложные устройства. Могут быть скрытой группировкой." },
+    scientists: { name: "Учёные", img: "pictur/ecolog.webp", desc: "Исследователи аномалий, артефактов и мутантов. Не вступают в открытые конфликты, но нуждаются в защите. Занимаются разработкой уникальных предметов и выкупом артефактов." }
 };
-const factionOrder = ["oksop","neutral","bandits","sin","duty","freedom","renegades","mercs","clearSky","monolith"];
+const factionOrder = ["oksop","neutral","bandits","sin","duty","freedom","renegades","mercs","clearSky","scientists"];
 const modal = document.getElementById('featureModal');
 const modalTitle = document.getElementById('modalTitle');
 const modalBody = document.getElementById('modalBody');
@@ -1042,3 +1112,15 @@ document.getElementById('copyIpButton')?.addEventListener('click', () => { navig
 document.getElementById('copyIpBtn')?.addEventListener('click', (e) => { e.preventDefault(); navigator.clipboard.writeText(ip); showToast('IP скопирован: ' + ip); });
 document.getElementById('copyDiscordBtn')?.addEventListener('click', () => { navigator.clipboard.writeText('https://discord.gg/nexusrp'); showToast('Приглашение в Discord скопировано!'); });
 if (!document.querySelector('.tab-btn.active')) switchTab('about');
+
+// Переходы по карточкам в блоке "О проекте"
+document.querySelectorAll('.nav-card').forEach(card => {
+    card.addEventListener('click', () => {
+        const tabId = card.getAttribute('data-tab');
+        if (tabId) {
+            switchTab(tabId);
+            // Прокручиваем к началу контента
+            document.querySelector('.tab-content.active-tab')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
