@@ -1,6 +1,3 @@
-// ============================================================
-// РАЗДЕЛ ПРАВИЛ – ПОЛНОСТЬЮ ОБНОВЛЁННЫЙ (21 раздел)
-// ============================================================
 const rulesSections = [
     { 
         title: "Раздел 1: Введение", 
@@ -1024,6 +1021,15 @@ function switchTab(tabId) {
         if (tocList.children.length === 0) buildTOC();
         showSection(currentSectionIndex);
     }
+}
+// Возврат на главную (вкладка "О нас") при клике на логотип
+const logoHome = document.getElementById('logoHome');
+if (logoHome) {
+    logoHome.style.cursor = 'pointer'; // чтобы был указатель, как у ссылки
+    logoHome.addEventListener('click', () => {
+        switchTab('about');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 }
 tabBtns.forEach(btn => { btn.addEventListener('click', () => { switchTab(btn.getAttribute('data-tab')); if (navLinks.classList.contains('active')) navLinks.classList.remove('active'); }); });
 const burger = document.getElementById('burgerBtn'), navLinks = document.getElementById('navLinks');

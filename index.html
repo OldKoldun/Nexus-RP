@@ -18,7 +18,7 @@
 
 <header class="header">
     <div class="container nav-bar">
-        <div class="logo">
+        <div class="logo" id="logoHome">
             <img class="logo-img" src="Nexus.jpg" alt="Логотип NEXUS RP">
             <div class="logo-text">
                 <h1>𝐍𝐄𝐗𝐔𝐒 𝐑𝐏</h1>
@@ -45,19 +45,18 @@
 
 <main>
     <div class="container">
-        <div class="hero">
-            <h2>𝐍𝐄𝐗𝐔𝐒 𝐑𝐏</h2>
-            <div class="hero-sub">「 OBT STALKER RP / DayZ 」</div>
-            <p class="hero-description">Уникальный гибрид атмосферы S.T.A.L.K.E.R. и механик DayZ. Аномалии, артефакты, мутанты, войны кланов и полный RP-откуп. Твой путь начинается в Зоне — выживи или стань легендой.</p>
-            <div class="btn-group">
-                <a href="#" class="btn btn-primary" id="startBtn"><i class="fas fa-play"></i> Начать выживание</a>
-                <a href="#" class="btn btn-outline" id="copyIpBtn"><i class="fas fa-copy"></i> IP сервера</a>
-            </div>
-        </div>
-
         <div id="tabContainer">
-            <!-- О нас -->
+            <!-- О нас (с hero-блоком) -->
             <div id="about" class="tab-content active-tab">
+                <div class="hero">
+                    <h2>𝐍𝐄𝐗𝐔𝐒 𝐑𝐏</h2>
+                    <div class="hero-sub">「 OBT STALKER RP / DayZ 」</div>
+                    <p class="hero-description">Уникальный гибрид атмосферы S.T.A.L.K.E.R. и механик DayZ. Аномалии, артефакты, мутанты, войны кланов и полный RP-откуп. Твой путь начинается в Зоне — выживи или стань легендой.</p>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-primary" id="startBtn"><i class="fas fa-play"></i> Начать выживание</a>
+                        <a href="#" class="btn btn-outline" id="copyIpBtn"><i class="fas fa-copy"></i> IP сервера</a>
+                    </div>
+                </div>
                 <h2 class="section-title"><span>О ПРОЕКТЕ</span></h2>
                 <div class="about-text"><p>NEXUS RP — авторская сборка, объединяющая мрачную эстетику вселенной S.T.A.L.K.E.R. и хардкорный выживач DayZ. Фракции, кастомная экономика, радиация, аномалии. Полное погружение в роль.</p></div>
                 <h2 class="section-title"><span>ОСОБЕННОСТИ</span></h2>
@@ -112,7 +111,7 @@
                 </div>
             </div>
 
-            <!-- История (в разработке) -->
+            <!-- История -->
             <div id="history" class="tab-content">
                 <div class="dev-block">
                     <i class="fas fa-book-open dev-icon"></i>
@@ -121,7 +120,7 @@
                 </div>
             </div>
 
-            <!-- Донат (в разработке) -->
+            <!-- Донат -->
             <div id="donate" class="tab-content">
                 <div class="dev-block">
                     <i class="fas fa-gift dev-icon"></i>
@@ -130,7 +129,7 @@
                 </div>
             </div>
 
-            <!-- Разработка (в разработке) -->
+            <!-- Разработка -->
             <div id="development" class="tab-content">
                 <div class="dev-block">
                     <i class="fas fa-code dev-icon"></i>
@@ -144,7 +143,7 @@
 
 <footer><div class="container"><p>© 2026 𝐍𝐄𝐗𝐔𝐒 𝐑𝐏 — OBT STALKER RP / DayZ. Зона ждёт тебя. «Монолит не прощает слабость».</p></div></footer>
 
-<!-- Модальное окно для особенностей -->
+<!-- Модальные окна -->
 <div id="featureModal" class="modal">
     <div class="modal-content">
         <div class="modal-header"><h3 id="modalTitle">Название</h3><span class="close-modal">&times;</span></div>
@@ -152,7 +151,6 @@
     </div>
 </div>
 
-<!-- Модальное окно Steam -->
 <div id="steamModal" class="modal">
     <div class="modal-content">
         <div class="modal-header"><h3>Вход через Steam</h3><span class="close-modal" id="closeSteamModal">&times;</span></div>
