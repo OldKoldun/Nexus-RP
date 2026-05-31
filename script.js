@@ -1104,8 +1104,6 @@ if (logoHome) {
 tabBtns.forEach(btn => { btn.addEventListener('click', () => { switchTab(btn.getAttribute('data-tab')); if (navLinks.classList.contains('active')) navLinks.classList.remove('active'); }); });
 const burger = document.getElementById('burgerBtn'), navLinks = document.getElementById('navLinks');
 if (burger) burger.addEventListener('click', () => navLinks.classList.toggle('active'));
-const startBtn = document.getElementById('startBtn');
-if (startBtn) startBtn.addEventListener('click', (e) => { e.preventDefault(); switchTab('howto'); document.getElementById('howto').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
 function showToast(msg) { let existing = document.querySelector('.toast-msg'); if (existing) existing.remove(); let div = document.createElement('div'); div.className = 'toast-msg'; div.innerHTML = `<i class="fas fa-info-circle"></i> ${msg}`; document.body.appendChild(div); setTimeout(() => { div.style.opacity = '0'; setTimeout(() => div.remove(), 400); }, 2500); }
 const ip = 'play.nexusrp.ru';
 document.getElementById('copyIpButton')?.addEventListener('click', () => { navigator.clipboard.writeText(ip); showToast('IP скопирован: ' + ip); });
@@ -1122,5 +1120,32 @@ document.querySelectorAll('.nav-card').forEach(card => {
             // Прокручиваем к началу контента
             document.querySelector('.tab-content.active-tab')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+    });
+});
+
+// ========== ФИЛЬТР ТОВАРОВ ДЛЯ РЫНКА "ЧЁРНЫЕ БЕРЕТЫ" ==========
+const filterButtons = document.querySelectorAll('.market-cat');
+const marketCards = document.querySelectorAll('.market-card');
+
+function filterMarketItems(category) {
+    marketCards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-cat') === category) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeIn 0.3s ease';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Убираем активный класс у всех кнопок
+        filterButtons.forEach(b => b.classList.remove('active'));
+        // Добавляем активный класс текущей кнопке
+        btn.classList.add('active');
+        // Получаем категорию и фильтруем
+        const category = btn.getAttribute('data-cat');
+        filterMarketItems(category);
     });
 });

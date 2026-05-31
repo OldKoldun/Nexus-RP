@@ -30,7 +30,6 @@
             <ul class="nav-links" id="navLinks">
                 <li><button class="tab-btn active" data-tab="about">О нас</button></li>
                 <li><button class="tab-btn" data-tab="rules">Правила</button></li>
-                <li><button class="tab-btn" data-tab="howto">Как играть</button></li>
                 <li><button class="tab-btn" data-tab="history">История</button></li>
                 <li><button class="tab-btn" data-tab="donate">Магазин</button></li>
                 <li><button class="tab-btn" data-tab="development">Разработки</button></li>
@@ -54,7 +53,16 @@
         <div class="hero-sub">「 OBT STALKER RP / DayZ 」</div>
         <p class="hero-description">Уникальный гибрид вселенной S.T.A.L.K.E.R. и хардкорных механик DayZ. Аномалии, артефакты, мутанты, войны кланов и полный RP-откуп. Твой путь начинается в Зоне — выживи или стань легендой.</p>
         <div class="btn-group">
-            <a href="#" class="btn btn-primary" id="startBtn"><i class="fas fa-play"></i> Начать выживание</a>
+            <a href="#" class="btn btn-primary" id="startBtn">
+    <i class="fas fa-play"></i> Начать выживание
+</a>
+
+<script>
+    document.getElementById('startBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'dayz://connect/212.22.93.139:2332';
+    });
+</script>
             <a href="#" class="btn btn-outline" id="copyIpBtn"><i class="fas fa-copy"></i> IP сервера</a>
         </div>
     </div>
@@ -194,14 +202,102 @@
                 </div>
             </div>
 
-			<!-- Магазин -->
-			<div id="donate" class="tab-content">
-				<div class="dev-block">
-					<i class="fas fa-store" style="font-size: 2.5rem; margin-bottom: 15px;"></i>
-					<div class="dev-title">Магазин</div>
-					<div class="dev-text">Магазин временно не работает. В ближайшее время здесь появятся уникальные привилегии, эксклюзивные предметы и бонусы для наших сталкеров. Следите за обновлениями в Discord!</div>
-				</div>
-			</div>
+<!-- Рынок Чёрные Береты -->
+<div id="donate" class="tab-content">
+    <div class="market-header">
+        <div class="market-logo">
+            <img src="market-logo.png" alt="Чёрные Береты" onerror="this.src='https://via.placeholder.com/80x80?text=ЧБ'">
+            <div class="market-logo-text">
+                <h2>Чёрные Береты</h2>
+                <p>Элитный торговый синдикат Зоны</p>
+            </div>
+        </div>
+        <div class="market-status">
+            <i class="fas fa-clock"></i>
+            <span>Открытие после стабилизации Периметра</span>
+        </div>
+    </div>
+
+    <div class="market-banner">
+        <i class="fas fa-truck-fast"></i>
+        <p>«Чёрные Береты» — лучшее место для обмена артефактов и снаряжения. Скоро тут появятся уникальные лоты. Следите за <strong>Discord</strong> — первый рейс уже в пути!</p>
+    </div>
+
+    <div class="market-categories">
+        <button class="market-cat active" data-cat="all">Всё</button>
+        <button class="market-cat" data-cat="weapon">Оружие</button>
+        <button class="market-cat" data-cat="armor">Броня</button>
+        <button class="market-cat" data-cat="medical">Медицина</button>
+        <button class="market-cat" data-cat="artifacts">Артефакты</button>
+    </div>
+
+    <div class="market-grid" id="marketGrid">
+        <!-- Карточка товара ВПО "Смерч" (оружие) -->
+        <div class="market-card locked" data-cat="weapon">
+            <img class="market-card-img" src="items/weapon_smerch.png" alt="ВПО Смерч" onerror="this.src='https://via.placeholder.com/200x200?text=ВПО+Смерч'">
+            <div class="market-icon"><i class="fas fa-gun"></i></div>
+            <h3>ВПО "Смерч"</h3>
+            <div class="market-price"><i class="fas fa-lock"></i> Скоро в продаже</div>
+            <div class="market-desc">Штурмовая винтовка с глушителем и коллиматором. Боезапас 5.45×39.</div>
+            <div class="market-tag">Оружие</div>
+        </div>
+
+        <!-- Карточка товара Экзоскелет "Корсар" (броня) -->
+        <div class="market-card locked" data-cat="armor">
+            <img class="market-card-img" src="items/armor_corsair.png" alt="Экзоскелет Корсар" onerror="this.src='https://via.placeholder.com/200x200?text=Экзоскелет'">
+            <div class="market-icon"><i class="fas fa-tshirt"></i></div>
+            <h3>Экзоскелет "Корсар"</h3>
+            <div class="market-price"><i class="fas fa-lock"></i> Скоро в продаже</div>
+            <div class="market-desc">Тяжёлая броня, защита от пуль и аномалий. Увеличивает переносимый вес.</div>
+            <div class="market-tag">Броня</div>
+        </div>
+
+        <!-- Карточка товара Аптечка "Монолит" (медицина) -->
+        <div class="market-card locked" data-cat="medical">
+            <img class="market-card-img" src="items/medical_monolith.png" alt="Аптечка Монолит" onerror="this.src='https://via.placeholder.com/200x200?text=Аптечка'">
+            <div class="market-icon"><i class="fas fa-capsules"></i></div>
+            <h3>Аптечка "Монолит"</h3>
+            <div class="market-price"><i class="fas fa-lock"></i> Скоро в продаже</div>
+            <div class="market-desc">Мгновенное восстановление здоровья + снятие радиации и кровотечений.</div>
+            <div class="market-tag">Медицина</div>
+        </div>
+
+        <!-- Карточка товара Артефакт "Кровь Камня" (артефакты) -->
+        <div class="market-card locked" data-cat="artifacts">
+            <img class="market-card-img" src="items/artifact_bloodstone.png" alt="Кровь Камня" onerror="this.src='https://via.placeholder.com/200x200?text=Артефакт'">
+            <div class="market-icon"><i class="fas fa-gem"></i></div>
+            <h3>Артефакт "Кровь Камня"</h3>
+            <div class="market-price"><i class="fas fa-lock"></i> Скоро в продаже</div>
+            <div class="market-desc">Редчайший артефакт, дарующий регенерацию здоровья в опасных зонах.</div>
+            <div class="market-tag">Артефакты</div>
+        </div>
+
+        <!-- Карточка товара Набор СЕВА-сталкера (броня) -->
+        <div class="market-card locked" data-cat="armor">
+            <img class="market-card-img" src="items/armor_seva.png" alt="Набор СЕВА" onerror="this.src='https://via.placeholder.com/200x200?text=СЕВА'">
+            <div class="market-icon"><i class="fas fa-vest"></i></div>
+            <h3>Набор СЕВА-сталкера</h3>
+            <div class="market-price"><i class="fas fa-lock"></i> Скоро в продаже</div>
+            <div class="market-desc">Полный комплект научной брони. Защита от радиации и химозоны.</div>
+            <div class="market-tag">Броня</div>
+        </div>
+
+        <!-- Карточка товара VSS (оружие) -->
+        <div class="market-card locked" data-cat="weapon">
+            <img class="market-card-img" src="items/weapon_vss.png" alt="VSS Винторез" onerror="this.src='https://via.placeholder.com/200x200?text=VSS'">
+            <div class="market-icon"><i class="fas fa-crosshairs"></i></div>
+            <h3>Снайперская винтовка VSS</h3>
+            <div class="market-price"><i class="fas fa-lock"></i> Скоро в продаже</div>
+            <div class="market-desc">Бесшумная снайперка для работы на дальних дистанциях. Патроны СП-5.</div>
+            <div class="market-tag">Оружие</div>
+        </div>
+    </div>
+
+    <div class="market-note">
+        <i class="fas fa-shield-alt"></i> Торговля ведётся за внутриигровую валюту. Все предметы можно получить через игровые механики.
+        <br><small>По вопросам оптовых поставок — в тикете <i class="fab fa-discord"></i> @Чёрные_Береты</small>
+    </div>
+</div>
 
             <!-- Разработка -->
             <div id="development" class="tab-content">
