@@ -704,3 +704,129 @@ footer { text-align: center; padding: 35px 0; font-size: 0.85rem; color: rgba(14
         transform: translateY(0);
     }
 }
+
+/* ===== ПОДСКАЗКА ПОД КНОПКАМИ ===== */
+.discord-hint {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.75rem;
+    color: rgba(200, 220, 245, 0.6);
+}
+.discord-hint i {
+    color: #5865F2;
+    margin-right: 5px;
+}
+.discord-hint span {
+    font-size: 0.7rem;
+}
+
+/* ===== МОДАЛЬНОЕ ОКНО ПОДКЛЮЧЕНИЯ ===== */
+.connect-server-info {
+    background: rgba(0, 20, 35, 0.7);
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.server-ip-box, .server-port-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0,0,0,0.4);
+    padding: 8px 15px;
+    border-radius: 40px;
+}
+.server-label {
+    font-weight: bold;
+    color: #9ac4e4;
+}
+.server-ip, .server-port {
+    font-family: monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ffaa66;
+    background: #0a1a2a;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+.copy-server-btn {
+    background: #1f6392;
+    border: none;
+    border-radius: 40px;
+    padding: 4px 12px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.7rem;
+    transition: 0.2s;
+}
+.copy-server-btn:hover {
+    background: #2c7cb0;
+}
+.connect-instructions {
+    text-align: left;
+    margin: 20px 0;
+}
+.connect-instructions h4 {
+    font-family: 'Russo One', monospace;
+    color: #8bcbff;
+    margin-bottom: 12px;
+}
+.connect-instructions ol {
+    margin-left: 20px;
+    line-height: 1.7;
+}
+.connect-instructions li {
+    margin-bottom: 8px;
+}
+.connect-instructions code {
+    background: #0a1a2a;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-family: monospace;
+    color: #ffaa66;
+}
+.connect-tip {
+    background: rgba(31, 99, 146, 0.3);
+    border-left: 3px solid #6ab0e6;
+    padding: 10px 15px;
+    border-radius: 12px;
+    margin-top: 15px;
+    font-size: 0.85rem;
+}
+.connect-warning {
+    background: rgba(255, 100, 30, 0.15);
+    border-left: 3px solid #ff7e2e;
+    padding: 10px 15px;
+    border-radius: 12px;
+    margin: 15px 0;
+    font-size: 0.8rem;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.connect-warning i {
+    color: #ff7e2e;
+    font-size: 1.1rem;
+}
+.modal-footer {
+    padding: 15px 24px 20px;
+    text-align: center;
+    border-top: 1px solid rgba(70,130,200,0.3);
+}
+.connect-done-btn {
+    background: #2c7cb0;
+    border: none;
+    border-radius: 40px;
+    padding: 10px 30px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.connect-done-btn:hover {
+    background: #3a8cc0;
+    transform: scale(1.02);
+}

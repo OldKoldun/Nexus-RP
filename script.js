@@ -1109,9 +1109,8 @@ document.getElementById('startBtn').addEventListener('click', (e) => {
 	window.location.href = 'dayz://connect/212.22.93.139:2332';
 });
 function showToast(msg) { let existing = document.querySelector('.toast-msg'); if (existing) existing.remove(); let div = document.createElement('div'); div.className = 'toast-msg'; div.innerHTML = `<i class="fas fa-info-circle"></i> ${msg}`; document.body.appendChild(div); setTimeout(() => { div.style.opacity = '0'; setTimeout(() => div.remove(), 400); }, 2500); }
-const ip = 'play.nexusrp.ru';
+const ip = '212.22.93.139';
 document.getElementById('copyIpButton')?.addEventListener('click', () => { navigator.clipboard.writeText(ip); showToast('IP скопирован: ' + ip); });
-document.getElementById('copyIpBtn')?.addEventListener('click', (e) => { e.preventDefault(); navigator.clipboard.writeText(ip); showToast('IP скопирован: ' + ip); });
 document.getElementById('copyDiscordBtn')?.addEventListener('click', () => { navigator.clipboard.writeText('https://discord.gg/nexusrp'); showToast('Приглашение в Discord скопировано!'); });
 if (!document.querySelector('.tab-btn.active')) switchTab('about');
 
@@ -1153,3 +1152,35 @@ filterButtons.forEach(btn => {
         filterMarketItems(category);
     });
 });
+
+// ========== МОДАЛЬНОЕ ОКНО ДЛЯ ПОДКЛЮЧЕНИЯ ==========
+const startBtn = document.getElementById('startBtn');
+const connectModal = document.getElementById('connectModal');
+const closeConnectModal = document.getElementById('closeConnectModal');
+const closeConnectModalBtn = document.getElementById('closeConnectModalBtn');
+const copyServerBtn = document.getElementById('copyServerIpBtn');
+const serverIp = '212.22.93.139';
+
+if (startBtn) {
+    startBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        connectModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    });
+}
+
+function closeConnectModalFunc() {
+    connectModal.classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+if (closeConnectModal) closeConnectModal.addEventListener('click', closeConnectModalFunc);
+if (closeConnectModalBtn) closeConnectModalBtn.addEventListener('click', closeConnectModalFunc);
+if (connectModal) connectModal.addEventListener('click', (e) => { if (e.target === connectModal) closeConnectModalFunc(); });
+
+if (copyServerBtn) {
+    copyServerBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(serverIp);
+        showToast('IP сервера скопирован: ' + serverIp);
+    });
+}
