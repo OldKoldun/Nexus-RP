@@ -1104,6 +1104,10 @@ if (logoHome) {
 tabBtns.forEach(btn => { btn.addEventListener('click', () => { switchTab(btn.getAttribute('data-tab')); if (navLinks.classList.contains('active')) navLinks.classList.remove('active'); }); });
 const burger = document.getElementById('burgerBtn'), navLinks = document.getElementById('navLinks');
 if (burger) burger.addEventListener('click', () => navLinks.classList.toggle('active'));
+document.getElementById('startBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+	window.location.href = 'dayz://connect/212.22.93.139:2332';
+});
 function showToast(msg) { let existing = document.querySelector('.toast-msg'); if (existing) existing.remove(); let div = document.createElement('div'); div.className = 'toast-msg'; div.innerHTML = `<i class="fas fa-info-circle"></i> ${msg}`; document.body.appendChild(div); setTimeout(() => { div.style.opacity = '0'; setTimeout(() => div.remove(), 400); }, 2500); }
 const ip = 'play.nexusrp.ru';
 document.getElementById('copyIpButton')?.addEventListener('click', () => { navigator.clipboard.writeText(ip); showToast('IP скопирован: ' + ip); });
