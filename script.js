@@ -857,12 +857,12 @@ clearBtn.addEventListener('click', () => {
 
 // ========== РАДИО ДУШИ ==========
 let trackList = [
-    { name: "ОКСОП", url: "music/track.mp3" },
-    { name: "Мех.Двора", url: "music/track1.mp3" },
-    { name: "Кордон", url: "music/track2.mp3" },
-    { name: "Разум", url: "music/track3.mp3" },
-    { name: "Бар РОСТОВ", url: "music/track4.mp3" },
-    { name: "Болот", url: "music/track5.mp3" }
+    { name: "Периметр", url: "music/track.mp3" },
+    { name: "Банды Мех-Двора", url: "music/track1.mp3" },
+    { name: "Деревня на Кордоне", url: "music/track2.mp3" },
+    { name: "Свалка центр зоны", url: "music/track3.mp3" },
+    { name: "Завод РОСТОВ", url: "music/track4.mp3" },
+    { name: "Лес у Болота", url: "music/track5.mp3" }
 ];
 let currentTrackIndex = 0;
 let audio = new Audio(trackList[0].url);
