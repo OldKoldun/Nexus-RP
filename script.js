@@ -1182,3 +1182,64 @@ if (copyServerBtn) {
     });
 }
 
+// ========== СЛАЙДЕР ФОТОГРАФИЙ В РАЗДЕЛЕ "О ПРОЕКТЕ" ==========
+const slides = document.querySelectorAll('.about-slide-img');
+const prevBtnAbout = document.getElementById('aboutSliderPrev');
+const nextBtnAbout = document.getElementById('aboutSliderNext');
+const dotsContainerAbout = document.getElementById('aboutSliderDots');
+
+let currentSlide = 0;
+let autoSlideInterval;
+
+function showSlide(index) {
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+    currentSlide = index;
+    slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === currentSlide);
+    });
+    // Обновляем точки
+    document.querySelectorAll('.dot-about').forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+    });
+}
+
+function nextSlide() {
+    showSlide(currentSlide + 1);
+    resetAutoSlide();
+}
+function prevSlide() {
+    showSlide(currentSlide - 1);
+    resetAutoSlide();
+}
+function resetAutoSlide() {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(() => {
+        nextSlide();
+    }, 5000);
+}
+
+if (prevBtnAbout && nextBtnAbout) {
+    prevBtnAbout.addEventListener('click', prevSlide);
+    nextBtnAbout.addEventListener('click', nextSlide);
+}
+
+// Создаём точки-индикаторы
+if (dotsContainerAbout) {
+    slides.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot-about');
+        if (i === currentSlide) dot.classList.add('active');
+        dot.addEventListener('click', () => {
+            showSlide(i);
+            resetAutoSlide();
+        });
+        dotsContainerAbout.appendChild(dot);
+    });
+}
+
+// Запускаем автопрокрутку и показываем первый слайд
+if (slides.length > 0) {
+    showSlide(0);
+    resetAutoSlide();
+}
