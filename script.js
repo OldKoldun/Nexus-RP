@@ -1243,3 +1243,42 @@ if (slides.length > 0) {
     showSlide(0);
     resetAutoSlide();
 }
+
+// ========== КАРУСЕЛЬ ОСОБЕННОСТЕЙ ==========
+const featuresSlides = document.querySelectorAll('.features-slide');
+const featuresPrevBtn = document.getElementById('featuresPrev');
+const featuresNextBtn = document.getElementById('featuresNext');
+const featuresDotsContainer = document.getElementById('featuresDots');
+let currentFeatureSlide = 0;
+
+function showFeatureSlide(index) {
+    if (index < 0) index = featuresSlides.length - 1;
+    if (index >= featuresSlides.length) index = 0;
+    currentFeatureSlide = index;
+    featuresSlides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === currentFeatureSlide);
+    });
+    document.querySelectorAll('.features-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentFeatureSlide);
+    });
+}
+
+function nextFeatureSlide() { showFeatureSlide(currentFeatureSlide + 1); }
+function prevFeatureSlide() { showFeatureSlide(currentFeatureSlide - 1); }
+
+if (featuresPrevBtn && featuresNextBtn && featuresSlides.length) {
+    featuresPrevBtn.addEventListener('click', prevFeatureSlide);
+    featuresNextBtn.addEventListener('click', nextFeatureSlide);
+}
+
+if (featuresDotsContainer) {
+    featuresSlides.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.classList.add('features-dot');
+        if (i === currentFeatureSlide) dot.classList.add('active');
+        dot.addEventListener('click', () => showFeatureSlide(i));
+        featuresDotsContainer.appendChild(dot);
+    });
+}
+
+if (featuresSlides.length) showFeatureSlide(0);
