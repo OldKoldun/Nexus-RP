@@ -975,6 +975,23 @@ updateTrackSelect();
 loadTrack(0);
 audio.volume = volumeSlider.value;
 
+// ========== РАДИО ТОГГЛ ==========
+const radioToggle = document.getElementById('radioToggle');
+const radioPlayer = document.getElementById('radioPlayer');
+const radioClose = document.getElementById('radioClose');
+if (radioToggle && radioPlayer) {
+    radioToggle.addEventListener('click', () => {
+        radioPlayer.classList.add('visible');
+        radioToggle.style.display = 'none';
+    });
+}
+if (radioClose && radioPlayer) {
+    radioClose.addEventListener('click', () => {
+        radioPlayer.classList.remove('visible');
+        radioToggle.style.display = 'flex';
+    });
+}
+
 // ========== МОДАЛЬНЫЕ ОКНА ДЛЯ ОСОБЕННОСТЕЙ ==========
 const featuresData = {
     radiation: { title: "Радиация & Аномалии", img: "https://via.placeholder.com/500x280?text=Аномалия+и+артефакт", desc: "Зона полна смертельных аномалий. Артефакты дают баффы, но добыча опасна. Радиация требует дозиметра и антирадов." },
@@ -1098,12 +1115,21 @@ if (logoHome) {
     logoHome.style.cursor = 'pointer'; // чтобы был указатель, как у ссылки
     logoHome.addEventListener('click', () => {
         switchTab('about');
+        closeMobileMenu();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
-tabBtns.forEach(btn => { btn.addEventListener('click', () => { switchTab(btn.getAttribute('data-tab')); if (navLinks.classList.contains('active')) navLinks.classList.remove('active'); }); });
+tabBtns.forEach(btn => { btn.addEventListener('click', () => { switchTab(btn.getAttribute('data-tab')); closeMobileMenu(); }); });
 const burger = document.getElementById('burgerBtn'), navLinks = document.getElementById('navLinks');
-if (burger) burger.addEventListener('click', () => navLinks.classList.toggle('active'));
+function toggleMobileMenu() {
+    const isOpen = navLinks.classList.toggle('active');
+    if (burger) burger.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+}
+function closeMobileMenu() {
+    navLinks.classList.remove('active');
+    if (burger) burger.innerHTML = '<i class="fas fa-bars"></i>';
+}
+if (burger) burger.addEventListener('click', toggleMobileMenu);
 
 function showToast(msg) { let existing = document.querySelector('.toast-msg'); if (existing) existing.remove(); let div = document.createElement('div'); div.className = 'toast-msg'; div.innerHTML = `<i class="fas fa-info-circle"></i> ${msg}`; document.body.appendChild(div); setTimeout(() => { div.style.opacity = '0'; setTimeout(() => div.remove(), 400); }, 2500); }
 const ip = '212.22.93.139';

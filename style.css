@@ -44,7 +44,13 @@ body { font-family: 'Inter', 'Source Code Pro', monospace; color: rgba(176,196,2
     display: flex;
     justify-content: center;
 }
-.nav-links { display: flex; gap: 32px; list-style: none; margin: 0; padding: 0; }
+.nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 .tab-btn { background: none; border: none; font-size: 1rem; font-weight: 500; color: rgba(190,215,240,0.9); transition: 0.2s; font-family: 'Source Code Pro', monospace; padding: 6px 0; cursor: pointer; }
 .tab-btn:hover { color: #6ab0e6; text-shadow: 0 0 5px #2c7da0; }
 .tab-btn.active { color: #8bcbff; border-bottom: 2px solid #3a86c8; }
@@ -467,7 +473,61 @@ footer { text-align: center; padding: 35px 0; font-size: 0.85rem; color: rgba(14
 .connect-done-btn:hover { background: #3a8cc0; transform: scale(1.02); }
 
 /* ===== РАДИО ДУШИ ===== */
-.radio-player { position: fixed; bottom: 20px; right: 20px; z-index: 1050; background: rgba(0,15,25,0.9); backdrop-filter: blur(12px); border-radius: 24px; padding: 12px 18px; border: 1px solid #3a86c8; display: flex; flex-direction: column; gap: 8px; min-width: 280px; }
+.radio-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1050;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(0, 15, 25, 0.9);
+    backdrop-filter: blur(12px);
+    border: 1px solid #3a86c8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7ab3c8;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.radio-toggle:hover {
+    background: #1f6392;
+    border-color: #6ab0e6;
+    color: white;
+    transform: scale(1.05);
+}
+.radio-player {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1050;
+    background: rgba(0,15,25,0.9);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 12px 18px;
+    border: 1px solid #3a86c8;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 280px;
+}
+.radio-player.visible {
+    display: flex;
+}
+.radio-close {
+    background: none;
+    border: none;
+    color: rgba(200, 220, 245, 0.5);
+    cursor: pointer;
+    font-size: 1rem;
+    margin-left: auto;
+    transition: 0.2s;
+}
+.radio-close:hover {
+    color: #ff8c5a;
+}
 .radio-player .row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: space-between; }
 .radio-icon { color: #7ab3c8; font-size: 1.3rem; }
 .radio-title { font-size: 0.9rem; font-weight: bold; color: #9ac8f0; }
@@ -692,17 +752,58 @@ footer { text-align: center; padding: 35px 0; font-size: 0.85rem; color: rgba(14
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    position: relative;
 }
-    .nav-center { order: 3; width: 100%; margin-top: 15px; justify-content: center; }
-    .burger { display: block; order: 2; }
+    .nav-center { order: 3; width: 100%; }
+    .burger { display: flex; order: 2; align-items: center; justify-content: center; width: 40px; height: 40px; }
     .steam-login { order: 1; margin-left: auto; margin-right: 0; }
-    .nav-links { display: none; flex-direction: column; width: 100%; background: #05121edd; backdrop-filter: blur(20px); padding: 20px; border-radius: 24px; text-align: center; gap: 15px; }
-    .nav-links.active { display: flex; }
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(3, 15, 25, 0.92);
+        backdrop-filter: blur(16px);
+        padding: 20px 24px;
+        gap: 6px;
+        border-radius: 0 0 24px 24px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        max-height: 80vh;
+        overflow-y: auto;
+        z-index: 200;
+    }
+    .nav-links.active {
+        display: flex;
+    }
+    .nav-links .tab-btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        background: rgba(15, 30, 50, 0.6);
+        border: 1px solid rgba(70, 130, 200, 0.25);
+        border-radius: 12px;
+        padding: 14px 20px;
+        font-size: 0.95rem;
+        letter-spacing: 2px;
+    }
+    .nav-links .tab-btn:hover {
+        background: rgba(31, 99, 146, 0.4);
+        border-color: rgba(139, 203, 255, 0.4);
+        transform: none;
+    }
+    .nav-links .tab-btn.active {
+        background: rgba(31, 99, 146, 0.6);
+        border-color: #3a86c8;
+        box-shadow: 0 0 12px rgba(58, 134, 200, 0.3);
+    }
     .hero h2 { font-size: 2.4rem; }
 .logo {
     flex: 0 0 auto;
 }
     .radio-player { min-width: 240px; padding: 8px 12px; }
+    .radio-toggle { width: 42px; height: 42px; font-size: 1.1rem; }
     .track-select { max-width: 120px; }
     .volume-slider { width: 60px; }
     .about-project { flex-direction: column; text-align: center; }
@@ -716,13 +817,6 @@ footer { text-align: center; padding: 35px 0; font-size: 0.85rem; color: rgba(14
 }
 
 /* ===== КНОПКИ КАТЕГОРИЙ (КИБЕРПАНК-СТИЛЬ) ===== */
-.nav-links {
-    display: flex;
-    gap: 20px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
 .tab-btn {
     background: rgba(10, 20, 30, 0.85);
     border: 1px solid #5a6e7a;
@@ -760,20 +854,6 @@ footer { text-align: center; padding: 35px 0; font-size: 0.85rem; color: rgba(14
 .tab-btn.active i {
     text-shadow: 0 0 8px #8bcbff;
 }
-/* Адаптив для мобильных */
-@media (max-width: 850px) {
-    .nav-links {
-        flex-direction: column;
-        width: 100%;
-        gap: 12px;
-    }
-    .tab-btn {
-        justify-content: center;
-        width: 100%;
-        padding: 12px 20px;
-    }
-}
-
 .nav-right {
     display: flex;
     align-items: center;
@@ -1181,25 +1261,6 @@ footer { text-align: center; padding: 35px 0; font-size: 0.85rem; color: rgba(14
     box-shadow: 0 0 8px #8bcbff;
 }
 
-@media (max-width: 850px) {
-    .features-slide {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        text-align: center;
-    }
-    .features-slide-content {
-        text-align: center;
-    }
-    .features-slider-main {
-        min-height: 500px;
-    }
-    .features-slider-arrow {
-        width: 38px;
-        height: 38px;
-        font-size: 1rem;
-    }
-}
-
 /* ===== КРАСИВЫЙ ТЕКСТ В КАРУСЕЛИ ОСОБЕННОСТЕЙ ===== */
 .features-slide-content {
     text-align: left;
@@ -1384,5 +1445,428 @@ footer { text-align: center; padding: 35px 0; font-size: 0.85rem; color: rgba(14
     }
     .features-slide-content p {
         font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .features-slide-image {
+        height: 320px;
+    }
+    .features-slide-content {
+        padding: 14px 16px;
+    }
+    .features-slide-content h3 {
+        font-size: 1.15rem;
+    }
+    .features-slide-content p {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+    .features-slide-icon {
+        font-size: 1.6rem !important;
+        margin-bottom: 6px;
+    }
+    .features-slider-arrow {
+        width: 34px;
+        height: 34px;
+        font-size: 0.9rem;
+    }
+}
+
+/* ===== МОБИЛЬНАЯ АДАПТАЦИЯ (ТЕЛЕФОНЫ < 480px) ===== */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
+    .header {
+        padding: 12px 0;
+    }
+    .logo-img {
+        height: 44px;
+        width: 44px;
+    }
+    .logo-text h1 {
+        font-size: 1.3rem;
+        letter-spacing: 1px;
+    }
+    .logo-text p {
+        font-size: 0.6rem;
+    }
+    .nav-bar {
+        gap: 6px;
+    }
+    .steam-login {
+        padding: 4px 10px;
+        gap: 5px;
+    }
+    .steam-login span {
+        font-size: 0.7rem;
+    }
+    .steam-login i {
+        font-size: 0.95rem;
+    }
+    .burger {
+        font-size: 1.4rem;
+    }
+    .nav-links {
+        padding: 14px;
+        gap: 8px;
+    }
+    .tab-btn {
+        font-size: 0.85rem;
+        padding: 10px 16px;
+    }
+
+    .hero {
+        padding: 50px 0 40px;
+    }
+    .hero h2 {
+        font-size: 1.7rem;
+    }
+    .hero-sub {
+        font-size: 1rem;
+        padding: 0 12px;
+        margin-top: 12px;
+    }
+    .hero-description {
+        font-size: 0.9rem;
+        margin: 20px auto 0;
+    }
+    .btn-group {
+        gap: 12px;
+        margin-top: 25px;
+    }
+    .btn {
+        font-size: 0.85rem;
+        padding: 10px 20px;
+    }
+
+    .section-title {
+        margin-bottom: 30px;
+    }
+    .section-title span {
+        font-size: 1.5rem;
+        padding: 0 12px;
+    }
+    .section-title span::before,
+    .section-title span::after {
+        font-size: 0.9rem;
+    }
+    .section-title span::before {
+        left: -8px;
+    }
+    .section-title span::after {
+        right: -8px;
+    }
+
+    .category-title {
+        font-size: 1.6rem;
+    }
+    .category-subtitle {
+        font-size: 0.75rem;
+    }
+    .category-icon {
+        font-size: 2.5rem;
+    }
+
+    .about-project {
+        padding: 16px;
+        border-radius: 20px;
+    }
+    .about-text-full p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    .about-highlight {
+        font-size: 1rem;
+    }
+    .image-container {
+        height: 220px !important;
+        border-radius: 16px;
+    }
+    .slider-arrow-left,
+    .slider-arrow-right {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 0.85rem !important;
+    }
+    .slider-arrow-left {
+        left: 8px !important;
+    }
+    .slider-arrow-right {
+        right: 8px !important;
+    }
+    .dot-about {
+        width: 10px;
+        height: 10px;
+    }
+
+    .rules-wrapper {
+        padding: 14px;
+        border-radius: 18px;
+    }
+    .rules-toc {
+        max-height: 200px;
+        padding: 10px;
+    }
+    .rules-toc h4 {
+        font-size: 1.1rem;
+    }
+    .toc-list button {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+    .rules-content-area {
+        min-height: 400px;
+        padding-right: 8px;
+    }
+    .rules-search {
+        padding: 4px 10px;
+    }
+    .rules-search input {
+        width: 100px;
+        font-size: 0.75rem;
+    }
+    .rule-section-display {
+        padding: 14px;
+        border-radius: 14px;
+        min-height: 350px;
+    }
+    .rule-section-display h3 {
+        font-size: 1.2rem;
+        padding-left: 12px;
+    }
+    .rule-section-display .content {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    .market-header {
+        padding: 14px;
+        border-radius: 20px;
+    }
+    .market-logo img {
+        width: 50px;
+        height: 50px;
+    }
+    .market-logo-text h2 {
+        font-size: 1.3rem;
+    }
+    .market-logo-text p {
+        font-size: 0.7rem;
+    }
+    .market-status {
+        font-size: 0.75rem;
+        padding: 6px 14px;
+    }
+    .market-banner {
+        padding: 12px 16px;
+        font-size: 0.85rem;
+    }
+    .market-categories {
+        gap: 8px;
+    }
+    .market-cat {
+        font-size: 0.75rem;
+        padding: 6px 14px;
+    }
+    .market-card {
+        padding: 14px;
+    }
+    .market-card-img {
+        height: 120px;
+    }
+    .market-card h3 {
+        font-size: 1rem;
+    }
+    .market-desc {
+        font-size: 0.8rem;
+    }
+
+    .modal-content {
+        max-width: 96%;
+        border-radius: 20px;
+    }
+    .modal-header {
+        padding: 12px 16px;
+    }
+    .modal-header h3 {
+        font-size: 1.2rem;
+    }
+    .close-modal {
+        font-size: 22px;
+    }
+    .modal-body {
+        padding: 14px 16px 20px;
+    }
+    .modal-img {
+        max-height: 200px;
+    }
+    .connect-server-info {
+        gap: 8px;
+        padding: 10px;
+    }
+    .server-ip-box,
+    .server-port-box {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .server-ip,
+    .server-port {
+        font-size: 0.9rem;
+    }
+    .connect-instructions {
+        font-size: 0.85rem;
+    }
+    .connect-instructions h4 {
+        font-size: 1rem;
+    }
+    .connect-instructions code {
+        font-size: 0.8rem;
+    }
+    .connect-warning {
+        font-size: 0.75rem;
+    }
+
+    .radio-player {
+        right: 10px;
+        left: 10px;
+        bottom: 10px;
+        min-width: auto;
+        padding: 10px 12px;
+        border-radius: 18px;
+    }
+    .radio-toggle {
+        right: 10px;
+        bottom: 10px;
+        width: 42px;
+        height: 42px;
+        font-size: 1.1rem;
+    }
+    .radio-title {
+        font-size: 0.8rem;
+    }
+    .radio-btn {
+        font-size: 1rem;
+    }
+    .track-select {
+        max-width: 110px;
+        font-size: 0.65rem;
+        padding: 4px 8px;
+    }
+    .volume-slider {
+        width: 50px;
+    }
+    .time-display {
+        font-size: 0.6rem;
+        min-width: 60px;
+    }
+    .progress-bar::-webkit-slider-thumb,
+    .volume-slider::-webkit-slider-thumb {
+        width: 10px;
+        height: 10px;
+    }
+
+    .dev-block {
+        padding: 30px 16px;
+    }
+    .dev-title {
+        font-size: 1.4rem;
+    }
+    .dev-text {
+        font-size: 0.9rem;
+    }
+    .dev-block i {
+        font-size: 2rem !important;
+    }
+
+    .legend-card {
+        padding: 16px;
+    }
+    .legend-name {
+        font-size: 1.2rem;
+    }
+    .legend-meta {
+        font-size: 0.7rem;
+    }
+    .legend-story p {
+        font-size: 0.85rem;
+    }
+    .legend-quote {
+        font-size: 0.8rem;
+        padding: 10px 14px;
+    }
+
+    .history-event {
+        padding: 14px;
+    }
+    .history-year {
+        font-size: 0.95rem;
+        min-width: auto;
+    }
+    .history-content h3 {
+        font-size: 1rem;
+    }
+    .history-content p {
+        font-size: 0.8rem;
+    }
+
+    .discord-hint {
+        font-size: 0.65rem;
+    }
+    .discord-hint span {
+        font-size: 0.6rem;
+    }
+    .toast-msg {
+        font-size: 0.7rem;
+        padding: 8px 14px;
+        bottom: 70px;
+        right: 10px;
+        left: 10px;
+        text-align: center;
+    }
+    footer {
+        font-size: 0.7rem;
+        padding: 20px 0;
+    }
+}
+
+@media (max-width: 360px) {
+    .hero h2 {
+        font-size: 1.4rem;
+    }
+    .hero-sub {
+        font-size: 0.85rem;
+    }
+    .logo-text h1 {
+        font-size: 1.1rem;
+    }
+    .section-title span {
+        font-size: 1.2rem;
+    }
+    .category-title {
+        font-size: 1.3rem;
+    }
+    .market-grid {
+        gap: 14px;
+    }
+    .radio-player {
+        padding: 8px 10px;
+    }
+    .radio-controls {
+        gap: 6px;
+    }
+    .features-slide-image {
+        height: 260px;
+    }
+    .features-slide-content {
+        max-height: 200px;
+        overflow-y: auto;
+        padding: 10px 12px;
+    }
+    .image-container {
+        height: 180px !important;
     }
 }
